@@ -1,29 +1,38 @@
-"""
-URL configuration for Final project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path,include
-from django.contrib.auth import views as auth_views
+from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('mainapp.urls')),
-      path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-       
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+  
+    path('', views.landing_page, name='landing_page'),
+    path('logout', views.landing_page, name='logout'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+    path('otp-verify/', views.otp_verify, name='otp_verify'),
+    path('reset-password/', views.reset_password, name='reset_password'),
+    path('Create_Account/', views.Create_Account, name='Create_Account'),
+
+   
+    path('signin', views.signin, name='signin'),
+    path('signout', views.signout, name='signout'),
+   
+    path('role-selection/', views.role_selection_view, name='role_selection'),
+    path('students/<str:role>/', views.student_list_view, name='student_list'),
+    path('students/midsem/<int:student_id>/', views.update_midsem_marks, name='update_midsem_marks'),
+    path('students/endsem/<int:student_id>/', views.update_endsem_marks, name='update_endsem_marks'),
+    path('students/', views.student_list_view, name='student_list'),
+   
+    path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
+    path('student-list/<str:role>/', views.student_list_view, name='student_list'),
+    path('dashboard/', views.dashboard, name='dashboard'),  # Add dashboard later
+    path('send-marks-email/<str:role>/', views.send_marks_email, name='send_marks_email'),
+    path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
+    path('student/login/', views.custom_login, name='student_login'),
+    path('pdf_success/', views.pdf_success, name='pdf_success'),  # New success page
+    path('professor-login/', views.professor_login, name='professor_login'),
+    path('login/', views.Create_Account, name='login'),
+
+
+
+
+
 ]
